@@ -4,7 +4,7 @@ const {Schema, model} = require('mongoose');
 const Calendar = new Schema({
     owner_id: {type: Schema.Types.ObjectId, ref: 'User'},
     name: {type: String, required: true},
-    description: {type: String},
+    description: {type: String, default: ''},
     category: {type: String, required: true, default: "task"},
     users: [{
         user_id: {type: String, required: true},

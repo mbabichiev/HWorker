@@ -65,7 +65,7 @@ authRouter.post('/login',
     authController.login);
 
 
-// request: refreshToken in cookies
+// request: Bearer 'access_token'
 // response: status code 200 
 authRouter.post('/logout', authController.logout);
 

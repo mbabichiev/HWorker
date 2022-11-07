@@ -34,10 +34,10 @@ class UserService {
             });
 
         console.log("Created user with id: " + user._id);
-
         const calendar = await calendarService.createCalendar("main", '', 'task', user._id);
+        console.log(calendar)
+        console.log(calendar.calendar.id);
         user.own_calendars.push(calendar.calendar.id);
-        await user.save();
 
         const userDto = new UserDto(user);
         const tokens = this.tokenService.generateAccessAndRefreshTokens({ ...userDto });
@@ -45,6 +45,19 @@ class UserService {
         this.mailService.sendGreetings(email);
 
         return { ...tokens, user: userDto }
+    }
+
+
+    async getUserById(id) {
+        console.log("Get user with id: " + id);
+        const user = await UserModel.findById(id);
+
+        if(!user) {
+            throw ErrorHandler.BadRequest(`User not found`);
+        }
+
+        const userDto = new UserDto(user);
+        return { user: {...userDto} }
     }
 
 
@@ -107,7 +120,7 @@ class UserService {
 
         const tokens = this.tokenService.generateAccessAndRefreshTokens({id: user._id});
 
-        let link = process.env.SERVER_URL + '/api/auth/reset/' + tokens.acessToken;
+        let link = process.env.CLIENT_URL + '/reset/' + tokens.acessToken;
         this.mailService.sendResetLink(email, link);
     }
 

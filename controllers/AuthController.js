@@ -72,7 +72,8 @@ class AuthController {
     async profile(request, response, next) {
         try {
             const {user} = request;
-            return response.status(200).json(user);
+            const profile = await userService.getUserById(user.id);
+            return response.status(200).json(profile);
         }
         catch(e) {
             next(e);

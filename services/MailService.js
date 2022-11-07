@@ -44,7 +44,22 @@ class MailService {
                 <p>Thank you for registering. Create the first events in the main calendar :)</p>
             </div>        
         `)
+    }
 
+
+    async sendInvitation(to, link, inviter_name, calendar_name) {
+        if(!to || !link || !calendar_name || !inviter_name) {
+            return
+        }
+
+        await this.#sendMail(to, "Invitation to the calendar", '', 
+        `
+        <div>
+            <h1>${inviter_name} invite you to the calendar "${calendar_name}". Follow this link to get into the calendar:</h1>
+            <a>${link}</a>
+            <h2>Attention! Link will be active for 30 minutes!</h2>
+        </div>
+        `)
     }
 
 
