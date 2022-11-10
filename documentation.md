@@ -229,10 +229,9 @@ response:
                 "role": "owner",
                 "color": "rgb(57, 58, 62)",
                 "_id": "id in arr"
-            }, 
-            ...
+            }
         ],
-        "events": ["array of event ids"]
+        "events": []
     }
 }
 ```
@@ -271,7 +270,17 @@ response:
             },
             ...
         ],
-        "events": ["array of event ids"]
+        "events": [
+            {
+                "id": "event id",
+                "creater_id": "creater id",
+                "calendar_id": "calendar id",
+                "name": "invite someone",
+                "start_time": "time",
+                "end_time": "time"
+            },
+            ...
+        ]
     }
 }
 ```
