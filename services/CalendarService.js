@@ -5,6 +5,7 @@ const CalendarDto = require('../dtos/CalendarDto');
 const TokenService = require('../services/TokenService');
 const MailService = require('../services/MailService');
 const { default: mongoose } = require('mongoose');
+const eventService = require('./EventService');
 
 class CalendarService {
 
@@ -154,7 +155,7 @@ class CalendarService {
                 description: calendar.description,
                 calegory: calendar.category,
                 users: await this.#getUsersFromCalendar(calendar),
-                events: calendar.events
+                events: await eventService.getEventsFromArrIds(calendar.events)
             }
         };
     }

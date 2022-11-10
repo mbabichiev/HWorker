@@ -5,6 +5,7 @@ const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
 const router = require('./router/index');
 const errorMiddleware = require('./middlewares/ErrorMiddleware');
+const eventService = require('./services/EventService');
 
 
 const PORT = process.env.SERVER_URL.split(':')[2] || 8080;
@@ -29,6 +30,10 @@ const start = async () => {
         app.listen(PORT, () => {
             console.log(`Server started on PORT ${PORT}\n${process.env.SERVER_URL}`);
         })
+
+        setInterval(function() {
+            eventService.deleteInactiveEvents();
+        }, 60 * 60 * 1000); // every hour
     }
     catch(e) {
         console.log(e);
@@ -37,3 +42,4 @@ const start = async () => {
 
 
 start();
+

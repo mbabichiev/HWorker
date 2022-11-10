@@ -398,3 +398,142 @@ response: status 200
 
 
 #
+
+## Events
+
+Create event:
+
+`POST - /api/calendars/:calendar_id/events`
+```JavaScript
+request: 'Bearer access_token' in Authorization
+{
+    "name": "name", // 1-20 symbols
+    "start_time": time_in_ms,
+    "end_time": time_in_ms
+}
+```
+```JavaScript
+response:
+{
+    "id": "event id",
+    "creater_id": "owner id",
+    "calendar_id": "calendar id",
+    "name": "name",
+    "start_time": "01.01.2022, 10:10:10",
+    "end_time": "01.01.2022, 10:10:20"
+}
+```
+`Errors:`
+- `User is not authorized`
+- `Invalid id` (calendar/owner id)
+- `You cannot create events in the past`
+- `Min time for event - 1 second`
+- `Calendar not found`
+- `Calendar is not avaliable for you`
+- `The time of the event overlaps with others`
+
+#
+
+Get all events by calendar id:
+
+`GET - /api/calendars/:calendar_id/events`
+```JavaScript
+request: 'Bearer access_token' in Authorization
+```
+```JavaScript
+response: 
+[
+    {
+        "id": "event id",
+        "creater_id": "owner id",
+        "calendar_id": "calendar id",
+        "name": "test",
+        "start_time": "01.01.2022, 10:10:10",
+        "end_time": "01.01.2022, 10:10:20"
+    }
+    ...
+]
+```
+`Errors:`
+- `User is not authorized`
+- `Invalid id` (calendar/user id)
+- `Calendar not found`
+- `Calendar is not avaliable for you`
+
+#
+
+Get event by id:
+
+`GET - /api/calendars/:calendar_id/events/:event_id`
+```JavaScript
+request: 'Bearer access_token' in Authorization
+```
+```JavaScript
+response: 
+{
+    "id": "event id",
+    "creater_id": "owner id",
+    "calendar_id": "calendar id",
+    "name": "name",
+    "start_time": "01.01.2022, 10:10:10",
+    "end_time": "01.01.2022, 10:10:20"
+}
+```
+`Errors:`
+- `User is not authorized`
+- `Invalid id` (calendar/user/event id)
+- `Calendar not found`
+- `Calendar is not avaliable for you`
+- `Event not found`
+- `This event not for this calendar`
+
+#
+
+Update event:
+
+`PATCH - /api/calendars/:calendar_id/events/:event_id`
+```JavaScript
+request: 'Bearer access_token' in Authorization
+{
+    // choose fields you want to update
+    "name": "name", // 1-20 symbols
+    "start_time": time_in_ms,
+    "end_time": time_in_ms
+}
+```
+```JavaScript
+response: status 200
+```
+`Errors:`
+- `User is not authorized`
+- `Invalid id` (calendar/owner/event id)
+- `Calendar not found`
+- `Calendar is not avaliable for you`
+- `Event not found`
+- `This event not for this calendar`
+- `Users can edit only own events`
+- `Admins can edit only own events and events of users`
+- `The time of the event overlaps with others`
+
+#
+
+Delete event:
+
+`DELETE - /api/calendars/:calendar_id/events/:event_id`
+```JavaScript
+request: 'Bearer access_token' in Authorization
+```
+```JavaScript
+response: status 200
+```
+`Errors:`
+- `User is not authorized`
+- `Invalid id` (calendar/owner/event id)
+- `Calendar not found`
+- `Calendar is not avaliable for you`
+- `Event not found`
+- `This event not for this calendar`
+- `Users can delete only own events`
+- `Admins can delete only own events and events of users`
+
+#

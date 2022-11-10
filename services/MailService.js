@@ -51,7 +51,7 @@ class MailService {
         if(!to || !link || !calendar_name || !inviter_name) {
             return
         }
-
+        console.log();
         await this.#sendMail(to, "Invitation to the calendar", '', 
         `
         <div>
