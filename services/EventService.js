@@ -9,7 +9,7 @@ class EventService {
 
     #checkForId(id) {
         if (id && id.length !== 24) {
-            throw ErrorHandler.BadRequest(`Invalid id`);
+            throw ErrorHandler.BadRequest(`Invalid id: ${id}`);
         }
     }
 

@@ -18,7 +18,7 @@ class CalendarService {
 
     #checkForId(id) {
         if (id.length !== 24) {
-            throw ErrorHandler.BadRequest(`Invalid id`);
+            throw ErrorHandler.BadRequest(`Invalid id: ${id}`);
         }
     }
 
